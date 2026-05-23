@@ -1,45 +1,48 @@
-# 上线说明（给不写代码的人）
+# 上线说明：Vercel + Supabase
 
-我已经把项目整理成可以部署的 Node 网站。
+这个方案不需要 Render 绑卡。
 
-## 你需要准备
+## 1. Supabase
 
-任选一个托管平台账号：
+1. 打开 Supabase 并登录。
+2. 创建一个免费项目。
+3. 进入 SQL Editor。
+4. 复制并运行 `supabase-schema.sql`。
+5. 在 Project Settings > API 里复制：
+   - Project URL
+   - service_role key
 
-- Render
-- Railway
-- Fly.io
-- 一台自己的服务器
+## 2. Vercel
 
-我建议先用 Render 或 Railway，因为最省事。
-
-## 你需要自己完成的动作
-
-因为涉及账号和权限，你需要自己登录托管平台，并授权连接项目代码仓库。
-
-上线时需要设置两个环境变量：
+1. 使用 GitHub 登录 Vercel。
+2. Import Git Repository，选择 `surf-yard-china`。
+3. Framework Preset 选 Other。
+4. Build Command 留空。
+5. Output Directory 留空。
+6. 添加环境变量：
 
 ```text
-ADMIN_PASSWORD=你自己设置的后台密码
-OPENAI_API_KEY=你的 OpenAI API Key（如果暂时不用 AI 生图，可以先不填）
+ADMIN_PASSWORD=你设置的后台密码
+SUPABASE_URL=Supabase Project URL
+SUPABASE_SERVICE_ROLE_KEY=Supabase service_role key
 ```
 
-## 上线后访问地址
+如果暂时不用 AI 生图，不需要设置 `OPENAI_API_KEY`。
+
+## 3. 访问
 
 前台：
 
 ```text
-https://你的域名/
+https://你的-vercel-域名/
 ```
 
 后台：
 
 ```text
-https://你的域名/admin.html
+https://你的-vercel-域名/admin.html
 ```
 
 ## 注意
 
-当前轻量后台会把内容保存到服务器文件 `data/content.json`。
-免费托管平台有时会在重启或重新部署时重置本地文件。正式运营前，建议升级为数据库后台，例如 Supabase / Firebase / PostgreSQL。
-
+后台保存的内容会进入 Supabase，不会因为 Vercel 重新部署而丢失。
