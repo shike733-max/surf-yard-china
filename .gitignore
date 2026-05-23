@@ -1,0 +1,7 @@
+.env
+node_modules/
+generated/*
+!generated/.gitkeep
+.DS_Store
+Thumbs.db
+*.zip
