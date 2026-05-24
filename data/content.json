@@ -3,54 +3,5 @@
     "title": "二手冲浪装备，直接找到合适的人。",
     "description": "冲浪板、陆地冲浪板、fin、板蜡、板包和湿衣集中交易。按城市、价格、品类筛选，直接联系卖家。"
   },
-  "listings": [
-    {
-      "id": "board-js-monsta",
-      "title": "JS Monsta Box 5'10 进阶短板",
-      "category": "冲浪板",
-      "subtype": "短板",
-      "city": "深圳",
-      "price": 2600,
-      "size": "5'10 x 19 1/4",
-      "condition": "轻微使用痕迹",
-      "seller": "阿泽",
-      "contact": "WeChat: aze_surf",
-      "trade": true,
-      "photo": "https://images.unsplash.com/photo-1455729552865-3658a5d39692?auto=format&fit=crop&w=1200&q=85",
-      "description": "大鹏和惠州浪点常用板，板底干净，尾部有一次专业补伤，送一套FCS尾舵。",
-      "tags": ["JS", "短板", "深圳"]
-    },
-    {
-      "id": "longboard-92-sanya",
-      "title": "9'2 单鳍长板 鼻乘友好",
-      "category": "冲浪板",
-      "subtype": "长板",
-      "city": "三亚",
-      "price": 4200,
-      "size": "9'2 x 22 7/8",
-      "condition": "正常使用痕迹",
-      "seller": "Lina",
-      "contact": "电话: 138-0000-5199",
-      "trade": false,
-      "photo": "https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=1200&q=85",
-      "description": "后海店内自用板，适合小浪日和练习走板。可约后海当面验板。",
-      "tags": ["长板", "三亚", "鼻乘"]
-    },
-    {
-      "id": "retro-fish-xiamen",
-      "title": "Retro Fish 5'6 双鳍鱼板",
-      "category": "冲浪板",
-      "subtype": "鱼板",
-      "city": "厦门",
-      "price": 3100,
-      "size": "5'6 x 20 3/4",
-      "condition": "几乎全新",
-      "seller": "岛外老陈",
-      "contact": "WeChat: fishxiamen",
-      "trade": true,
-      "photo": "https://images.unsplash.com/photo-1515238152791-8216bfdf89a7?auto=format&fit=crop&w=1200&q=85",
-      "description": "只下水三次，浮力足，适合厦门冬天小浪。接受同价位中长板交换。",
-      "tags": ["鱼板", "厦门", "双鳍"]
-    }
-  ]
+  "listings": []
 }

@@ -221,7 +221,7 @@ async function loadSiteContent() {
       ...content,
       hero: { ...siteContent.hero, ...(content.hero || {}) },
     };
-    if (Array.isArray(content.listings) && content.listings.length) {
+    if (Array.isArray(content.listings)) {
       listings = content.listings.map((item) => ({
         id: item.id || crypto.randomUUID(),
         trade: Boolean(item.trade),
