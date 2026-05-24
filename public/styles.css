@@ -988,7 +988,7 @@ dialog::backdrop {
   }
 
   .topbar {
-    grid-template-columns: auto 1fr auto auto;
+    grid-template-columns: minmax(118px, 1fr) auto auto;
     gap: 10px;
     padding: 10px 14px 12px;
   }
@@ -996,6 +996,14 @@ dialog::backdrop {
   .brand {
     min-width: 0;
     gap: 9px;
+  }
+
+  .brand strong {
+    max-width: 132px;
+    font-size: 17px;
+    line-height: 0.94;
+    letter-spacing: 0.035em;
+    white-space: normal;
   }
 
   .brand-mark {
@@ -1118,7 +1126,11 @@ main {
   }
 
   .brand strong {
-    font-size: 27px;
+    max-width: 132px;
+    font-size: 17px;
+    line-height: 0.94;
+    letter-spacing: 0.035em;
+    white-space: normal;
   }
 
   .search-wrap {
