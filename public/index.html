@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>浪集 Surf Yard | 中国二手冲浪板交易</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="浪集首页">
+        <strong>surf yard china</strong>
+      </a>
+      <div class="search-wrap">
+        <label class="sr-only" for="searchInput">搜索商品</label>
+        <input id="searchInput" type="search" placeholder="搜索品牌、城市、尺寸、品类" />
+      </div>
+      <button class="icon-btn" id="wishlistBtn" type="button" aria-label="查看收藏" title="收藏">
+        <span>♡</span>
+        <b id="watchCount">0</b>
+      </button>
+      <button class="primary-btn" id="openPostBtn" type="button">发布商品</button>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <h1>二手冲浪装备，直接找到合适的人。</h1>
+          <p>冲浪板、陆地冲浪板、fin、板蜡、板包和湿衣集中交易。按城市、价格、品类筛选，直接联系卖家。</p>
+          <div class="hero-actions">
+            <button class="primary-btn" id="heroPostBtn" type="button">发布闲置</button>
+            <a class="text-link" href="#market">浏览商品</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="controls" aria-label="筛选商品" id="market">
+        <div>
+          <div class="segment" id="categoryTabs" role="tablist" aria-label="大分类"></div>
+          <div class="sub-segment" id="subtypeTabs" aria-label="小分类"></div>
+        </div>
+        <div class="filters">
+          <label>城市<select id="cityFilter"><option value="全部">全部城市</option></select></label>
+          <label>价格<select id="priceFilter"><option value="all">不限</option><option value="0-1500">¥1500 以下</option><option value="1500-3000">¥1500 - ¥3000</option><option value="3000-99999">¥3000 以上</option></select></label>
+          <label class="toggle"><input id="tradeFilter" type="checkbox" /><span>可交换</span></label>
+        </div>
+      </section>
+
+      <section class="market-layout">
+        <section class="listings" aria-label="商品列表">
+          <div class="market-search" role="search">
+            <label class="market-search-field" for="marketSearchInput">
+              <span class="sr-only">搜索市场商品</span>
+              <input id="marketSearchInput" type="search" placeholder="搜索商品、品牌、城市、关键词" autocomplete="off" />
+              <button class="clear-search" id="clearSearchBtn" type="button" aria-label="清除搜索">清除</button>
+            </label>
+            <span class="market-search-count" id="searchResultCount">找到 0 件装备</span>
+          </div>
+          <div class="list-head"><h2>正在出售</h2><span id="resultMeta">加载中</span></div>
+          <div class="card-grid" id="boardGrid"></div>
+          <div class="empty-state" id="emptyState" hidden><h3>没有找到相关装备</h3><p>尝试更短的关键词，或换一个搜索词。</p></div>
+        </section>
+      </section>
+
+    </main>
+
+    <dialog id="detailDialog">
+      <form method="dialog" class="dialog-shell">
+        <button class="close-btn" value="close" aria-label="关闭">×</button>
+        <div id="detailContent"></div>
+      </form>
+    </dialog>
+
+    <dialog id="postDialog">
+      <form class="dialog-shell post-form" id="postForm">
+        <button class="close-btn" type="button" id="closePostBtn" aria-label="关闭">×</button>
+        <h2>发布你的冲浪装备</h2>
+        <div class="form-grid">
+          <label>标题<input name="title" required placeholder="例如：Firewire Seaside 5'6" /></label>
+          <label>大分类<select name="category" id="postCategory" required></select></label>
+          <label>小分类<select name="subtype" id="postSubtype" required></select></label>
+          <label>城市<input name="city" required placeholder="三亚 / 深圳 / 上海" /></label>
+          <label>价格<input name="price" required type="number" min="0" placeholder="人民币" /></label>
+          <label>尺寸<input name="size" required placeholder="5'10 / 32寸 / M / 6号" /></label>
+          <label>成色<select name="condition" required><option>几乎全新</option><option>轻微使用痕迹</option><option>正常使用痕迹</option><option>有维修记录</option></select></label>
+          <label class="wide">照片<input name="photo" type="file" accept="image/*" /></label>
+          <label class="wide">描述<textarea name="description" required placeholder="写清楚购入时间、维修情况、配件、是否可小刀。"></textarea></label>
+          <label>联系人<input name="seller" required placeholder="昵称" /></label>
+          <label>联系方式<input name="contact" required placeholder="微信 / 手机 / 邮箱" /></label>
+          <label class="toggle wide"><input name="trade" type="checkbox" /><span>接受交换或补差价换装备</span></label>
+        </div>
+        <button class="primary-btn" type="submit">确认发布</button>
+      </form>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="./script.js"></script>
+  </body>
+</html>

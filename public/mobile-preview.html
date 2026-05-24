@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Surf Yard China | Mobile Preview</title>
+    <style>
+      :root {
+        color: #111;
+        background: #f7f7f4;
+        font-family: Inter, "Helvetica Neue", "PingFang SC", "Noto Sans SC", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        display: grid;
+        min-height: 100vh;
+        margin: 0;
+        place-items: center;
+        padding: 48px 20px;
+        overflow: hidden;
+      }
+
+      main {
+        display: grid;
+        gap: 18px;
+        justify-items: center;
+      }
+
+      .meta {
+        display: flex;
+        width: min(390px, calc(100vw - 40px));
+        justify-content: space-between;
+        color: rgba(0, 0, 0, 0.55);
+        font-size: 13px;
+      }
+
+      .phone {
+        --scale: min(1, calc((100vw - 40px) / 390), calc((100vh - 130px) / 844));
+        width: calc(390px * var(--scale));
+        height: calc(844px * var(--scale));
+        overflow: hidden;
+        background: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 34px;
+      }
+
+      iframe {
+        display: block;
+        width: 390px;
+        height: 844px;
+        border: 0;
+        transform-origin: top left;
+        transform: scale(var(--scale));
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="meta">
+        <span>Mobile Preview</span>
+        <span>390 × 844</span>
+      </div>
+      <div class="phone">
+        <iframe src="./index.html#market" title="手机尺寸网站预览"></iframe>
+      </div>
+    </main>
+  </body>
+</html>

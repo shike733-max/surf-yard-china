@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Surf Yard China Admin</title>
+    <style>
+      :root {
+        color: #111;
+        background: #f7f7f4;
+        font-family: Inter, "Helvetica Neue", "PingFang SC", "Noto Sans SC", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 64px clamp(20px, 6vw, 80px);
+      }
+
+      main {
+        max-width: 1040px;
+        margin: 0 auto;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        align-items: end;
+        margin-bottom: 44px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(36px, 6vw, 64px);
+        font-weight: 560;
+        letter-spacing: -0.03em;
+      }
+
+      p {
+        color: rgba(0, 0, 0, 0.55);
+        line-height: 1.7;
+      }
+
+      a {
+        color: #111;
+      }
+
+      form {
+        display: grid;
+        gap: 28px;
+      }
+
+      section {
+        padding-top: 28px;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+      label {
+        display: grid;
+        gap: 10px;
+        color: rgba(0, 0, 0, 0.58);
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        color: #111;
+        font: inherit;
+        background: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 20px;
+        outline: 0;
+      }
+
+      input {
+        min-height: 48px;
+        padding: 0 16px;
+      }
+
+      textarea {
+        min-height: 260px;
+        padding: 16px;
+        line-height: 1.55;
+        resize: vertical;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      button {
+        min-height: 48px;
+        padding: 0 22px;
+        color: #fff;
+        font: inherit;
+        font-weight: 650;
+        background: #111;
+        border: 0;
+        border-radius: 999px;
+        cursor: pointer;
+      }
+
+      .actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .ghost {
+        color: #111;
+        background: transparent;
+        border: 1px solid rgba(0, 0, 0, 0.12);
+      }
+
+      #status {
+        min-height: 24px;
+        color: rgba(0, 0, 0, 0.58);
+      }
+
+      @media (max-width: 760px) {
+        body {
+          padding: 36px 18px;
+        }
+
+        header,
+        .grid {
+          grid-template-columns: 1fr;
+          display: grid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div>
+          <h1>后台内容</h1>
+          <p>编辑首页文案和商品数据。保存后刷新前台即可看到更新。</p>
+        </div>
+        <a href="./index.html#market">返回网站</a>
+      </header>
+
+      <form id="adminForm">
+        <section class="grid">
+          <label>
+            后台密码
+            <input id="password" type="password" autocomplete="current-password" required />
+          </label>
+          <label>
+            首页标题
+            <input id="heroTitle" required />
+          </label>
+        </section>
+
+        <section>
+          <label>
+            首页描述
+            <textarea id="heroDescription" required></textarea>
+          </label>
+        </section>
+
+        <section>
+          <label>
+            商品数据 JSON
+            <textarea id="listingsJson" spellcheck="false" required></textarea>
+          </label>
+          <p>字段建议：title, category, subtype, city, price, size, condition, seller, contact, trade, photo, description, tags。</p>
+        </section>
+
+        <div class="actions">
+          <button type="submit">保存内容</button>
+          <button class="ghost" type="button" id="reloadBtn">重新载入</button>
+        </div>
+        <p id="status" role="status"></p>
+      </form>
+    </main>
+
+    <script>
+      const form = document.querySelector("#adminForm");
+      const password = document.querySelector("#password");
+      const heroTitle = document.querySelector("#heroTitle");
+      const heroDescription = document.querySelector("#heroDescription");
+      const listingsJson = document.querySelector("#listingsJson");
+      const status = document.querySelector("#status");
+
+      async function loadContent() {
+        status.textContent = "正在载入...";
+        const response = await fetch("/api/content", { cache: "no-store" });
+        const content = await response.json();
+        heroTitle.value = content.hero?.title || "";
+        heroDescription.value = content.hero?.description || "";
+        listingsJson.value = JSON.stringify(content.listings || [], null, 2);
+        status.textContent = "内容已载入";
+      }
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        status.textContent = "正在保存...";
+        let listings;
+        try {
+          listings = JSON.parse(listingsJson.value);
+        } catch {
+          status.textContent = "商品 JSON 格式不正确";
+          return;
+        }
+
+        const response = await fetch("/api/admin/content", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            password: password.value,
+            content: {
+              hero: {
+                title: heroTitle.value,
+                description: heroDescription.value,
+              },
+              listings,
+            },
+          }),
+        });
+        const result = await response.json();
+        status.textContent = response.ok ? "已保存" : result.error || "保存失败";
+      });
+
+      document.querySelector("#reloadBtn").addEventListener("click", loadContent);
+      loadContent();
+    </script>
+  </body>
+</html>
