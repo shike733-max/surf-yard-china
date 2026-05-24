@@ -1,6 +1,14 @@
 {
   "routes": [
     {
+      "src": "^/api/content$",
+      "dest": "/api/content.js"
+    },
+    {
+      "src": "^/api/admin/content$",
+      "dest": "/api/admin/content.js"
+    },
+    {
       "src": "^/$",
       "dest": "/index.html"
     }
