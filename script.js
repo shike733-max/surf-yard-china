@@ -1,9 +1,9 @@
 const categoryMap = {
   全部: ["全部"],
   冲浪板: ["全部", "长板", "短板", "鱼板", "软板"],
-  陆地冲浪板: ["全部", "陆冲板", "桥架", "轮子"],
   配件: ["全部", "fin", "冲浪板蜡", "冲浪板包"],
   冲浪湿衣: ["全部", "湿衣", "冲浪裤", "女生比基尼"],
+  陆地冲浪板: ["全部"],
 };
 
 const mainCategories = Object.keys(categoryMap);
@@ -338,6 +338,7 @@ function seedCategories() {
 function seedSubtypes() {
   const subtypes = categoryMap[activeCategory] || ["全部"];
   activeSubtype = subtypes.includes(activeSubtype) ? activeSubtype : "全部";
+  subtypeTabs.hidden = subtypes.length <= 1;
   subtypeTabs.innerHTML = subtypes
     .map(
       (subtype) =>
@@ -353,7 +354,8 @@ function seedPostForm() {
 
 function updatePostSubtypes() {
   const subtypes = categoryMap[postCategory.value].filter((subtype) => subtype !== "全部");
-  postSubtype.innerHTML = subtypes.map((subtype) => `<option>${subtype}</option>`).join("");
+  const options = subtypes.length ? subtypes : [postCategory.value];
+  postSubtype.innerHTML = options.map((subtype) => `<option>${subtype}</option>`).join("");
 }
 
 function seedCities() {
